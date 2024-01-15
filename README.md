@@ -15,5 +15,5 @@ Nicole Chang (7201841)	              Product Owner
 
 Parneet GILL (6854640)	              Developer
 
-Vishisth	                            Developer
+Vishisth Sharma (6855944)             Developer
 
