@@ -1,5 +1,6 @@
 # COSC4P02-PROJECT-PLANT-IDENTIFIER
 Team members:
+
 Alexandre Reuillon (6197834)          Developer
 
 Balkaran Sidhu (6837322)	            Developer
