@@ -13,7 +13,7 @@ Marylina Aka Beyeh (7056260)	        Developer
 
 Nicole Chang (7201841)	              Product Owner
 
-Parneet GILL (6854640)	              Developer
+Parneet Gill (6854640)	              Developer
 
 Vishisth Sharma (6855944)             Developer
 
