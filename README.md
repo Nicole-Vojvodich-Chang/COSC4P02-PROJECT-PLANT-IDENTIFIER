@@ -17,3 +17,4 @@ Parneet Gill (6854640)	              Developer
 
 Vishisth Sharma (6855944)             Developer
 
+Refer to the project proposal PDF file for more information about this application.
