@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="/sass/style.css"/>
+    <script src="js/main.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.0.4"></script>
+    <title>Plant Image Recognition</title>
+</head>
+<body>
+    Tree hugger Co.
+    <main>
+        <section class="newitementry">
+            <form id="entryForm">
+                <label for="newItem"> Enter to do item </label>
+                <input id="newItem" type="text" size="40" autocomplete="off" placeholder="Search plants" tabindex="0"/>
+                <button id="search button" class="button" title="search new plants" aria-label="search for plants" tabindex="0">⌕</button>               
+            </form>
+        </section>
+        <section class="listcontainer">
+            <div class="listTitle"> 
+                <h1> Upload your image </h1>
+                <!--<button id="clearitems" class="button" title="clear the list" aria-label="remove all labels off the lsit" tabindex="0">clear</button>-->
+            </div>
+            <hr />
+            <div id="listItems">
+                <div class="item">
+                    <!--<input type="checkbox" id="1" tabindex="0">-->
+                    <!--<label for="1">eat</label>-->
+                    <input type="file" id="imageUpload" accept="image/*">
+                    <img id="selectedImage" src="#" alt="Selected Image" style="max-width: 300px;">
+                    <div id="prediction"></div>
+                    <script>
+                        // Load the MobileNet model
+                        async function loadModel() {
+                            const model = await mobilenet.load();
+                            return model;
+                        }
+                
+                        // Predict plant species from the input image
+                        async function predict(imageElement, model) {
+                            // Make prediction
+                            const predictions = await model.classify(imageElement);
+                            return predictions;
+                        }
+                
+                        // Handle file upload
+                        document.getElementById('imageUpload').onchange = async function(event) {
+                            const file = event.target.files[0];
+                            const imageElement = document.getElementById('selectedImage');
+                            imageElement.src = URL.createObjectURL(file);
+                
+                            const model = await loadModel();
+                
+                            // Make prediction
+                            const predictions = await predict(imageElement, model);
+                
+                            // Display predictions
+                            const predictionDiv = document.getElementById('prediction');
+                            predictionDiv.innerHTML = '';
+                            predictions.forEach(prediction => {
+                                const p = document.createElement('p');
+                                p.textContent = `${prediction.className}: ${Math.round(prediction.probability * 100)}%`;
+                                predictionDiv.appendChild(p);
+                            });
+                        };
+                    </script>
+                </div>
+                <!--<div class="item">
+                    <input type="checkbox" id="2" tabindex="0">
+                    <label for="2">sleep</label>
+                </div>-->
+            </div>
+        </section>
+    </main>
+</body>
+</html>
