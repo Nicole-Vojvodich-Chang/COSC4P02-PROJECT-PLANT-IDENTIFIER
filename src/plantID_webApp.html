@@ -11,8 +11,21 @@
     <title>Plant Image Recognition</title>
 </head>
 <body>
-    Tree hugger Co.
     <main>
+        <nav>
+            <div class="logo">
+                <img src="Tree Hugger.png" alt="Logo" class="logo-image" style="margin-left: -10%;">
+                <span>Tree<br>Hugger</span>
+            </div>
+            <a href="#" class="active">Home</a>
+            <a href="#"> Category </a>
+            <a href="#"> User Account </a>
+            <a href="#"> Settings </a>
+        </nav>
+        <aside class="plant-gallery">
+            <img src="plant1.png" alt="Plant 1" class="plant-left">
+            <img src="plant2.png" alt="Plant 2" class="plant-right">
+        </aside>
         <section class="newitementry">
             <form id="entryForm">
                 <label for="newItem"> Enter to do item </label>
@@ -20,7 +33,7 @@
                 <button id="search button" class="button" title="search new plants" aria-label="search for plants" tabindex="0">⌕</button>               
             </form>
         </section>
-        <section class="listcontainer">
+        <section class="listcontainer">     
             <div class="listTitle"> 
                 <h1> Upload your image </h1>
                 <!--<button id="clearitems" class="button" title="clear the list" aria-label="remove all labels off the lsit" tabindex="0">clear</button>-->
@@ -28,8 +41,6 @@
             <hr />
             <div id="listItems">
                 <div class="item">
-                    <!--<input type="checkbox" id="1" tabindex="0">-->
-                    <!--<label for="1">eat</label>-->
                     <input type="file" id="imageUpload" accept="image/*">
                     <img id="selectedImage" src="#" alt="Selected Image" style="max-width: 300px;">
                     <div id="prediction"></div>
@@ -74,6 +85,10 @@
                     <label for="2">sleep</label>
                 </div>-->
             </div>
+        </section>     
+        <div class="right-images" style="background-color: transparent;right: 0px;">
+            <img src="plant3.png" alt="Image 1">
+            <!-- Add more image tags for additional images -->
         </section>
     </main>
 </body>
