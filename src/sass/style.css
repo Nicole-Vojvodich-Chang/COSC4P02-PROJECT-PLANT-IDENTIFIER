@@ -133,3 +133,144 @@ section {
 .listcontainer .item label {
   font-size: 1.1rem;
 }/*# sourceMappingURL=style.css.map */
+
+a {  
+  text-decoration: none;
+  color: inherit;
+}
+
+nav {
+  width: 100%;
+  display: flex;
+  height: 90px;
+  align-items: center;
+  gap: 20px;
+  color: #fff;
+  font-size: 18px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 20px;
+  margin-right: 60px;
+}
+
+nav a {
+  padding-inline: 30px;
+  position: relative;
+  font-weight: none;
+}
+
+nav a::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffffff;
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.logo-image {
+  width: 50px; /* Adjust the width as needed */
+  height: 50px; /* Adjust the height as needed */
+  margin-right: 0%; /* Add margin to the right to separate the image from the text */
+  float: left; /* Float the image to the left to position it in the top left corner */
+}
+
+nav a.active::before {
+  display: none;
+}
+
+nav a:hover {
+  color: #e8be4c; /* Change color on hover*/
+}
+
+nav a:hover::after {
+  content: "";
+  position: absolute;
+  width: calc(100% - 50px);
+  height: 10px;
+  background: #e8be4c;
+  top: -40px;
+  left: 50%;
+  transform: translate(-50%);
+  border-radius: 10px;
+}
+
+.nav-icon {
+  padding: 5px 10px;
+}
+
+.nav-icon i{
+  font-size: 18px;
+}
+
+.menu{
+  height: 100%;
+  width: 100px;
+  display: grid;
+  place-content: center;
+  font-size: 25px;
+  background: #3a6149;
+}
+
+section {
+  height: calc(100% - 90%);
+}
+
+.plant-gallery {
+  position: fixed;
+  max-height: 300px;
+  top: 100%;
+  transform: translateY(-70%);
+  width: 200px;
+  height: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  padding: 20px;
+}
+
+.plant-left,
+.plant-right {
+  width: 100%;
+  display: block;
+  margin-bottom: 20px; /* Add margin between Plant 1 and Plant 2 */
+}
+
+.plant-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.plant-right {
+  position: absolute;
+  top: 0;
+  right: -10px;
+}
+
+.right-images {
+  position: fixed; /* or absolute */
+  top: 50%; /* Adjust as needed */
+  transform: translateY(-20%);
+  right: 60px;
+  width: 300px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  padding: 20px;
+}
+
+.right-images img {
+  width: 300px;
+  max-width: none; /* Remove the maximum width limit */
+  height: auto; /* Maintain the aspect ratio */
+  display: block;
+  margin-bottom: 20px;
+}
