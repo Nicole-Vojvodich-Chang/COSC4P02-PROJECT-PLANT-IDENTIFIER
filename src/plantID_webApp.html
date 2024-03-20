@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="/sass/style.css"/>
-    <script src="js/main.js" type="module"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.0.4"></script>
     <title>Plant Image Recognition</title>
@@ -14,82 +15,132 @@
     <main>
         <nav>
             <div class="logo">
-                <img src="Tree Hugger.png" alt="Logo" class="logo-image" style="margin-left: -10%;">
+                <embed src="Tree Hugger.png" alt="Logo" class="logo-image" style="margin-left: -10%;">
                 <span>Tree<br>Hugger</span>
             </div>
             <a href="#" class="active">Home</a>
             <a href="#"> Category </a>
             <a href="#"> User Account </a>
+            <a href="#"> Snap History </a>
             <a href="#"> Settings </a>
         </nav>
         <aside class="plant-gallery">
-            <img src="plant1.png" alt="Plant 1" class="plant-left">
-            <img src="plant2.png" alt="Plant 2" class="plant-right">
+            <embed src="plant1.png" alt="Plant 1" class="plant-left">
+            <embed src="plant2.png" alt="Plant 2" class="plant-right">
         </aside>
         <section class="newitementry">
             <form id="entryForm">
-                <label for="newItem"> Enter to do item </label>
-                <input id="newItem" type="text" size="40" autocomplete="off" placeholder="Search plants" tabindex="0"/>
+                <input id="search" value="" type="text" size="40" autocomplete="off" placeholder="search plants" tabindex="0" onchange="openPage()"/>
                 <button id="search button" class="button" title="search new plants" aria-label="search for plants" tabindex="0">⌕</button>               
             </form>
+            <script>
+               function openPage() {
+                  var x = document.getElementById("search").value;
+                  if (x === x) {
+                     window.open("https://perenual.com/");
+                  }
+               }
+            </script>
         </section>
         <section class="listcontainer">     
             <div class="listTitle"> 
                 <h1> Upload your image </h1>
-                <!--<button id="clearitems" class="button" title="clear the list" aria-label="remove all labels off the lsit" tabindex="0">clear</button>-->
             </div>
             <hr />
             <div id="listItems">
                 <div class="item">
-                    <input type="file" id="imageUpload" accept="image/*">
-                    <img id="selectedImage" src="#" alt="Selected Image" style="max-width: 300px;">
-                    <div id="prediction"></div>
-                    <script>
-                        // Load the MobileNet model
+                    <div class="container">
+                        <div class="wrapper">
+                           <div class="image">
+                              <img src="" alt="">
+                           </div>
+                           <div class="content">
+                              <div class="icon">
+                                 <embed src="plant-icon.png" class="fas fa-cloud-upload-alt" height="80px" color="green"></i>
+                              </div>
+                              <div class="text">
+                                 No file chosen, yet!
+                              </div>
+                           </div>
+                           <div id="cancel-btn">
+                              <i class="fas fa-times"></i>
+                           </div>
+                           <div class="file-name">
+                              File name here
+                           </div>
+                        </div>
+                        <button onclick="defaultBtnActive()" id="custom-btn">Choose a file</button>
+                        <input id="default-btn" type="file" hidden>
+                     </div>
+                     <div class="loading-circle" id="loadingCircle"></div>
+                     <div id="predictions"></div> <!-- Predictions will be displayed here --> 
+                     <script>
+                        const wrapper = document.querySelector(".wrapper");
+                        const fileName = document.querySelector(".file-name");
+                        const defaultBtn = document.querySelector("#default-btn");
+                        const customBtn = document.querySelector("#custom-btn");
+                        const cancelBtn = document.querySelector("#cancel-btn i");
+                        const img = document.querySelector("img");
+                        const predictionsDiv = document.getElementById("predictions");
+                        let regExp = /[0-9a-zA-Z\^\&\'\@\{\}\[\]\,\$\=\!\-\#\(\)\.\%\+\~\_ ]+$/;
                         async function loadModel() {
-                            const model = await mobilenet.load();
-                            return model;
+                            return await mobilenet.load();
                         }
-                
-                        // Predict plant species from the input image
-                        async function predict(imageElement, model) {
-                            // Make prediction
+                        async function classifyImage(imageElement, model) {
                             const predictions = await model.classify(imageElement);
                             return predictions;
                         }
-                
-                        // Handle file upload
-                        document.getElementById('imageUpload').onchange = async function(event) {
-                            const file = event.target.files[0];
-                            const imageElement = document.getElementById('selectedImage');
-                            imageElement.src = URL.createObjectURL(file);
-                
-                            const model = await loadModel();
-                
-                            // Make prediction
-                            const predictions = await predict(imageElement, model);
-                
-                            // Display predictions
-                            const predictionDiv = document.getElementById('prediction');
-                            predictionDiv.innerHTML = '';
+                        function defaultBtnActive(){
+                          defaultBtn.click();
+                        }
+                        defaultBtn.addEventListener("change", async function(){
+                          const file = this.files[0];
+                          if(file){
+                            const reader = new FileReader();
+                            reader.onload = async function(){
+                              const result = reader.result;
+                              img.src = result;
+                              wrapper.classList.add("active");
+                              const model = await loadModel();
+                              const predictions = await classifyImage(img, model);
+                              displayPredictions(predictions);
+                            }
+                            cancelBtn.addEventListener("click", function(){
+                              img.src = "";
+                              wrapper.classList.remove("active");
+                            })
+                            reader.readAsDataURL(file);
+                          }
+                          if(this.value){
+                            let valueStore = this.value.match(regExp);
+                            fileName.textContent = valueStore;
+                          }
+                        });
+                        function displayPredictions(predictions) {
+                            predictionsDiv.innerHTML = "<h2>Identified:</h2>";
                             predictions.forEach(prediction => {
-                                const p = document.createElement('p');
-                                p.textContent = `${prediction.className}: ${Math.round(prediction.probability * 100)}%`;
-                                predictionDiv.appendChild(p);
+                                predictionsDiv.innerHTML += `<p>${prediction.className}: ${Math.round(prediction.probability * 100)}%</p>`;
                             });
-                        };
-                    </script>
+                        }
+                        //loading circle appears here
+                        const loadingCircle = document.getElementById("loadingCircle");
+                        async function defaultBtnActive() {
+                            defaultBtn.click();
+                            loadingCircle.style.display = "block";
+                        }
+
+                        async function classifyImage(imageElement, model) {
+                            const predictions = await model.classify(imageElement);
+                            loadingCircle.style.display = "none"; // Hide loading circle once prediction is completed
+                            return predictions;
+                        }
+                     </script>
                 </div>
-                <!--<div class="item">
-                    <input type="checkbox" id="2" tabindex="0">
-                    <label for="2">sleep</label>
-                </div>-->
             </div>
         </section>     
         <div class="right-images" style="background-color: transparent;right: 0px;">
             <img src="plant3.png" alt="Image 1">
-            <!-- Add more image tags for additional images -->
-        </section>
+        </div>
     </main>
 </body>
 </html>
