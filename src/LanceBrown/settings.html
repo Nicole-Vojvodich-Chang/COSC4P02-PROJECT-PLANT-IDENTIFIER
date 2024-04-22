@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Page</title>
+    <link rel="stylesheet" href="settings-style.css">
+</head>
+<body>
+
+<div class="topnav">
+    <a href="home.html">Home</a>
+    <a href="settings.html" class="active">Settings</a>
+    <a href="environment.html">Garden</a>
+    <a href="library.html">Library</a>
+</div>
+
+<div class="sidebar">
+    <button class="tablink" onclick="openTab(event, 'Account')" id="defaultOpen">Account</button>
+    <button class="tablink" onclick="openTab(event, 'Privacy')">Privacy</button>
+    <button class="tablink" onclick="openTab(event, 'Notifications')">Notifications</button>
+    <button class="tablink" onclick="openTab(event, 'Security')">Security</button>
+    <!-- Add more tabs as needed -->
+</div>
+
+<div id="Account" class="tabcontent">
+    <!--Languages dropdown-->
+    <div class="dropdown">
+        <label for="language-select">Language:</label>
+        <select id="language-select">
+            <option value="english">English</option>
+            <option value="spanish">Spanish</option>
+            <option value="french">French</option>
+            <!-- Add more languages as needed -->
+        </select>
+    </div>
+</div>
+
+<div id="Privacy" class="tabcontent">
+    <!-- Account Visibility -->
+    <div class="option">
+        <label for="account-visibility-select">Account Visibility:</label>
+        <select id="account-visibility-select">
+            <option value="public">Public</option>
+            <option value="restricted">Restricted</option>
+        </select>
+    </div>
+    <div id="restricted-usernames" style="display:none;">
+        <input type="text" id="username-input" placeholder="Enter usernames" />
+        <ul id="username-list"></ul>
+    </div>
+</div>
+
+<div id="Security" class="tabcontent">
+    <!-- 2FA Toggle -->
+    <div class="option">
+        <label class="switch">
+            <input type="checkbox" id="2fa-toggle">
+            <span class="slider round"></span>
+        </label>
+        <span class="option-label">Enable 2FA</span>
+    </div>
+</div>
+
+<div id="Notifications" class="tabcontent">
+    <!--Email Notifications-->
+    <div class="option">
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+        </label>
+        <span class="option-label">Receive Email Notifications</span>
+    </div>
+</div>
+
+<script>
+// JavaScript for tab functionality
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it to open the default tab
+document.getElementById("defaultOpen").click();
+</script>
+
+</body>
+</html>
