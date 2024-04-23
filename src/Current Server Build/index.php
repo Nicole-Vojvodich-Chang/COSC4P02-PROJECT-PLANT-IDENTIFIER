@@ -3,6 +3,90 @@
 ini_set('session.cache_limiter','public');
 session_cache_limiter(false);
 session_start();
+
+
+if (isset($_SESSION["user"]))
+{
+	 header("Location: home/home.php");
+}
+
+		
+
+//CHECKS IF ACCOUNT USERNAME AND EMAIL IS AVAILABLE
+function checkAvailability($uname, $email)
+{
+	$servername = "localhost";
+	$username = "root";		
+	$password = "";
+	$db = "users";
+	$conn = mysqli_connect($servername, $username, $password, $db);
+	if (!$conn) 
+	{
+		die("ERROR PLEASE TRY AGAIN LATER... : " . mysqli_connect_error());
+	}
+	
+			
+			
+			
+	$sql = "SELECT COUNT(email) from user WHERE email = '" . $email . "'";				
+    $result = mysqli_query($conn, $sql);
+	$row = mysqli_fetch_row($result);
+	
+	if ($row[0] != 0)
+	{
+		$conn->close();
+		echo "EMAIL ALREADY IN USE, PLEASE USE ANOTHER EMAIL! <br>";
+		return false;
+	}
+	
+	$sql = "SELECT COUNT(Username) from user WHERE username = '" . $uname . "'";				
+	$result = mysqli_query($conn, $sql);
+	$row = mysqli_fetch_row($result);
+	if ($row[0] != 0)
+	{
+		$conn->close();
+		echo "USERNAME ALREADY IN USE, PLEASE USE ANOTHER USERNAME! <br>";
+		return false;
+	}
+	$conn->close();
+	return true;
+}
+		
+//CREATES A NEW ACCOUNT IN THE DATABASE
+function insert($un, $em, $ps)
+{
+	if (strlen($ps) < 8)
+	{
+		echo "PASSWORD IS TOO SHORT PLEASE CHOOSE A PASSWORD WITH ATLEAST 8 CHARACTERS! <br>";
+		return;
+	}
+	//CONNECT TO DATABASE
+	$servername = "localhost";
+	$username = "root";		
+	$password = "";
+	$db = "users";
+	$conn = mysqli_connect($servername, $username, $password, $db);
+	if (!$conn) 
+	{
+		die("ERROR PLEASE TRY AGAIN LATER... : " . mysqli_connect_error());
+	}
+	
+	//CREATES A SALTED HASH TO STORE PASSWORDS MORE SECURELY
+	$saltpass = $un . $ps;
+	$saltpass = hash('sha256', $saltpass);
+	$sql = "INSERT INTO `user`(`email`, `username`, `password`) VALUES ('". $em. "','". $un. "','". $saltpass. "')";				
+   
+		//CREATES ACCOUNT IF IT IS AVAILABLE
+  		if ($conn->query($sql) == TRUE) 
+	{
+		echo "<br> ACCOUNT CREATED SUCCESSFULLY <br>";
+	}
+	else 
+	{
+		echo "ERROR CREATING ACCOUNT";
+	}
+}
+
 //USERPASSWORD AUTHENTICATION FUNCTION
 function authenticate($em, $pw)
 {
@@ -22,13 +106,13 @@ function authenticate($em, $pw)
 	if ($email[0] == 0)
 	{
 		$conn->close();
-		echo "<br>INCORRECT EMAIL OR PASSWORD <br>";
+		echo "INCORRECT EMAIL OR PASSWORD";
 		return false;
 	}
 	else
 	{
-		$getPass = "SELECT PASSWORD FROM `user` WHERE email = '" . $em . "'";
-		$getUname = "SELECT username FROM `user` WHERE email = '" . $em . "'";
+		$getPass = "SELECT Password FROM `user` WHERE email = '" . $em . "'";
+		$getUname = "SELECT Username FROM `user` WHERE email = '" . $em . "'";
 				
 		$pResult = mysqli_query($conn, $getPass);
 		$uResult = mysqli_query($conn, $getUname);
@@ -41,13 +125,13 @@ function authenticate($em, $pw)
 		{
 			$conn->close();					
 			$_SESSION["user"] = $currentUser; 
-			exec ('index.php') ;
 			return true;
 		}
 		else
 		{
 			$conn->close();
-			echo "INCORRECT EMAIL OR PASSWORD! <br>";
+			echo "INCORRECT EMAIL OR PASSWORD!";
+			
 			return false;
 		}
 	}
@@ -99,12 +183,6 @@ function logout()
                 
                 <!-- Sign In form section -->
                 <div id="signInForm">
-				
-                    
-					
-					
-                    
-                    
 					<form action="index.php" method="post">
 					<?php 
 					echo '<label for="signInUsernameInput">USERNAME</label>';
@@ -119,12 +197,30 @@ function logout()
 					
 					if (isset($_POST["user"]) && isset($_POST["pass"]) && $_POST["pass"] != "" && $_POST["user"] != "")
 					{
-						echo "<script> console.log('", $_POST["user"] , " " , $_POST["pass"] ,"'); </script>";
+						authenticate($_POST["user"], $_POST["pass"]);
+						header("Location: home/home.php");
 					}
 					else
 					{	
 						echo "<script> console.log('ENSURE BOTH FIELDS ARE ENTERED!'); </script>";
 					}
+					if (isset($_POST["nuser"]) && isset($_POST["npass"]) && isset($_POST["email"]) && $_POST["npass"] != "" && $_POST["nuser"] != "" && $_POST["email"] != "")
+					{
+						echo '<script> console.log("', $_POST['nuser'] , ' ' , $_POST['npass'] , ' ' , $_POST['email'] ,'"); </script>';
+						if (!str_contains($_POST["email"], '@') && !str_contains($_POST["email"], '.'))
+						{
+							echo "PLEASE ENTER A VALID E-MAIL ADRESS! <br>";
+						}
+						else
+						{
+							if (checkAvailability($_POST["nuser"], $_POST["email"]))
+							{
+								echo "<br> ACCOUNT CREATED SUCCESSFULLY! <br>";
+							}
+						}
+					}
+					
+					
 					
 					echo '<button type="submit" id="login" class="signInInput">Login</button>    <!-- Login button -->'
 					
@@ -167,6 +263,17 @@ function logout()
 					if (isset($_POST["nuser"]) && isset($_POST["npass"]) && isset($_POST["email"]) && $_POST["npass"] != "" && $_POST["nuser"] != "" && $_POST["email"] != "")
 					{
 						echo '<script> console.log("', $_POST['nuser'] , ' ' , $_POST['npass'] , ' ' , $_POST['email'] ,'"); </script>';
+						if (!str_contains($_POST["email"], '@') && !str_contains($_POST["email"], '.'))
+						{
+							//echo "PLEASE ENTER A VALID E-MAIL ADRESS! <br>";
+						}
+						else
+						{
+							if (checkAvailability($_POST["nuser"], $_POST["email"]))
+							{
+								insert($_POST["nuser"], $_POST["email"], $_POST["npass"]);
+							}
+						}
 					}
 					else
 					{	
