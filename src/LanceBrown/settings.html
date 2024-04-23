@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <img src="Tree-Hugger-Co-Logo.png" alt="Company Logo" id="logo">
+        <img src="Tree-Hugger-Co-Logo.png" alt="Tree Hugger" id="logo">
         <div id="company-name">
             <span>Tree</span>
             <span>Hugger</span>
@@ -20,6 +20,38 @@
         </nav>
     </header>
     <main>
+        <!-- Can pre-load fields with current account details -->>
+        <form id="user-settings-form">
+            <h1>Account Details</h1>
+            <div class="setting-item">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="setting-item">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="setting-item">
+                <label for="degree">Degree:</label>
+                <input type="text" id="degree" name="degree">
+            </div>
+            <div class="setting-item">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" min="0">
+            </div>
+            <div class="setting-item">
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city">
+            </div>
+            <div class="setting-item">
+                <label for="bio">Account Bio:</label>
+                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
+            </div>
+            <div class="setting-item">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+
         <div id="settings">
             <div class="setting-item">
                 <label for="language-dropdown">Language:</label>
@@ -48,6 +80,9 @@
                   <input type="checkbox" id="enable-2fa">
                   <span class="slider"></span>
                 </label>
+            </div>
+            <div class="setting-item">
+                <button>Apply</button>
             </div>
         </div>
     </main>
