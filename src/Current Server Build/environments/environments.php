@@ -22,9 +22,9 @@ if (!isset($_SESSION["user"]))
 
     <div class="topnav">
         <a href="/../home/home.php">Home</a>
-        <a href="settings.php">Settings</a>
         <a href="environments.html" class="active">Garden</a>
-        <a href="library.html">Library</a>
+        <a href="/../plants.php">PlantList</a>
+		<a href="settings.php">Settings</a>
         <!-- Add more navigation links as needed -->
     </div>
 

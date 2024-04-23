@@ -25,8 +25,8 @@ if (!isset($_SESSION["user"]))
         </div>
         <nav>
             <button class="nav-button" onclick="location.href='/../home/home.php';">Home</button>
+			<button class="nav-button" onclick="location.href='/../plants.php';">PlantList</button>
             <button class="nav-button" onclick="location.href='environments.php';">Garden</button>
-            <button class="nav-button" onclick="location.href='library.html';">Library</button>
         </nav>
     </header>
     <main>

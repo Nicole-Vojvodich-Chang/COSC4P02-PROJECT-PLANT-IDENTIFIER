@@ -31,9 +31,9 @@ if (!isset($_SESSION["user"]))
             </div>
             <a href="#" class="active">Home</a>
             <a href="#"> Category </a>
-            <a href="#"> User Account </a>
+            <a href="/../Account/index.html"> User Account </a>
             <a href="#"> Snap History </a>
-            <a href="/../environments/environments.php" target="_parent">
+            <a href="environments.php" target="_parent">
               Environments</a>
             <a href="/../environments/settings.php"> Settings </a>
         </nav>
@@ -49,7 +49,7 @@ if (!isset($_SESSION["user"]))
 
             <section class="listcontainer">     
               <div class="listTitle"> 
-                  <h1> Upload your image </h1>
+                  <h1> Upload Your Image </h1>
               </div>
               <hr />
               <div id="listItems">
