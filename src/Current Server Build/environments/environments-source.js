@@ -1,10 +1,6 @@
-
-
 //discovered plants example
 const plants = [
     ["Rose", "A beautiful flower with thorns.", "01-01-2020", "rose.jpg"],
-    ["Daisy", "A simple and pretty flower.", "02-02-2021", "daisy.jpg"],
-    ["Tulip", "A flower of some sort.", "02-02-2021", "tulip.jpg"]
 ];
 
 //create the dim overlay
@@ -17,7 +13,8 @@ const popup = document.createElement('div');    //the popup for plant details
 
 const plantContainer = document.querySelector('.plant-container');
 
-plants.forEach((plant) => {
+plants.forEach((plant) => 
+{
     const plantItem = document.createElement('div');
     plantItem.classList.add('plant-item');
 

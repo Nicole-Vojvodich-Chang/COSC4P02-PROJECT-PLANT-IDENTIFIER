@@ -161,15 +161,6 @@ function authenticate($em, $pw)
 		}
 	}
 }
-		
-function logout()
-{
-	if (isset($_SESSION["user"]))
-	{
-		echo "LOGOUT SUCCESSFUL";
-		session_destroy();
-	}
-}
 
 ?>
 
@@ -210,8 +201,8 @@ function logout()
                 <div id="signInForm">
 					<form action="index.php" method="post">
 					<?php 
-					echo '<label for="signInUsernameInput">USERNAME</label>';
-                    echo '<input name="user" type="text" id="signInUsernameInput"  placeholder="e.g. JohnDoe123">';
+					echo '<label for="signInUsernameInput">E-MAIL</label>';
+                    echo '<input name="user" type="text" id="signInUsernameInput"  placeholder="e.g. JohnDoe123@gmail.com">';
                     echo '<div class="password-container">';                        
                     echo '<label for="signInPasswordInput">PASSWORD</label>';
                     echo '<input name="pass" type="password" id="signInPasswordInput" class="signInInput" placeholder="*************">';

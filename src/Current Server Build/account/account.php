@@ -1,4 +1,5 @@
 <link rel="icon" href="/../LEAF.png">
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +12,33 @@ if (!isset($_SESSION["user"]))
 {
 	 header("Location: /../index.php");
 }
+function getIdentified()
+{
+	$servername = "localhost";
+	$username = "root";		
+	$password = "";
+	$db = "users";
+	$conn = mysqli_connect($servername, $username, $password, $db);
+	if (!$conn) 
+	{
+		die("ERROR PLEASE TRY AGAIN LATER... : " . mysqli_connect_error());
+	}
+	$sql = "SELECT * from identified WHERE username = '" . $_SESSION["user"] . "'";				
+    $result = mysqli_query($conn, $sql);
+	
+	$tableData = array();
+	$x =0;
+	while($row = mysqli_fetch_array($result))
+	{
+		$tableData[(int)$x][0] = $row['Plantname'];
+		$tableData[(int)$x][2] = $row['Date'];
+		$tableData[(int)$x][1] = $row['description'];
+		$tableData[(int)$x][3] = 'placeholder.jpg';	
+		$x += 1;
+	}
+	return $tableData;
+}
+
 function getUserData()
 {
 	global $name_S, $email_S, $age_S, $country_S, $bio_S, $language_S, $aType_S, $TFA_S, $update_S;
@@ -182,6 +210,40 @@ getUserData();
         </div>
       </div>
     </section><!-- End achievement Section -->
+
+	<section id="testing" class=" Environment section-bg">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Recently Identified</h2>
+        </div>
+		
+		<?php
+			error_reporting(E_ERROR | E_PARSE);
+			$tData = getIdentified();
+			echo '<table style="width:100%">';
+			echo '<tr>';
+			echo '<td><h2>Plant Name</h2></td> <td><h2>Date Identified</h2></td>';
+			echo '</tr>';
+			for ($x = 0; $x <= sizeof($tData); $x++)
+			{
+				echo '<tr>';
+				echo '<td>' . $tData[$x][0] . '</td> <td>' . $tData[$x][2] . '</td>';
+				echo '</tr>';
+			}
+			echo '</table>';
+			
+			echo '<pre>';
+			
+				
+			
+			echo '</pre>';
+		?>
+
+        </div>
+
+      </div>
+	</section><!-- End environment Section -->
 
     <!-- ======= Environment Section ======= -->
     <section id="testing" class=" Environment section-bg">
