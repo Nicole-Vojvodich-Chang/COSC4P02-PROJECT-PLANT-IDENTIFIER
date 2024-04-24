@@ -126,9 +126,9 @@ getSettings();
 				?>       
             </div>
             <div class="setting-item">
-                <label for="email">Email:</label>
+                <label for="email">Contact:</label>
 				<?php
-				echo '<input type="email" id="email" name="email" value =' . $email_S . '>';
+				echo '<input type="text" id="email" name="email" value =' . $email_S . '>';
 				?> 
             </div>
             <div class="setting-item">

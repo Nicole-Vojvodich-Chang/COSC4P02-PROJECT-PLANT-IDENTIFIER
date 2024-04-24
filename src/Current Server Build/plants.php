@@ -51,9 +51,54 @@
             padding: 10px; /* Adjust padding for spacing inside the table header */
             text-align: center; /* Center-align text */
         }
+		
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+		
+		
     </style>
 </head>
 <body>
+		
+	<ul>
+		<li><a href="/../home/home.php">Home</a></li>
+		<li><a href="/../plants.php">PlantList</a></li>
+		<li><a href="/../account/account.php" >My Account</a></li>
+		<li><a href="environments.php" class="active">Garden</a></li>
+		<li><a href="settings.php">Settings</a></li>
+	</ul>
+
+
+
 <?php
 ini_set('session.cache_limiter', 'public');
 session_cache_limiter(false);
@@ -62,6 +107,7 @@ if (!isset($_GET['page']))
 {
     $_GET['page'] = 1;
 }
+
 
 
 
@@ -95,7 +141,7 @@ function searchPlant($url, $plantName)
     } else {
         echo "FOUND A TOTAL OF " . sizeof($vals) . " RESULTS<br>";
     }
-
+	
     echo "<form action='plants.php?page=" . $_GET['page'] . "'method='post'>";
     echo '<input type="submit" name="previous" value="PREVIOUS PAGE" class="rounded-button">';
     echo '<input type="submit" name="next" value="NEXT PAGE" class="rounded-button">';
@@ -185,7 +231,7 @@ function call($url)
 
 
 }
-
+echo '<br><br><br><br>';
 echo "<form action='plants.php?page=" . $_GET['page'] . "'method='post'>";
 echo '<input type="text" name="sBox" class="rounded-input">'; // Change input type and add class for styling
 echo '<input type="submit" name="SEARCH" value="SEARCH PLANT" class="rounded-button">'; // Change input type and add class for styling
