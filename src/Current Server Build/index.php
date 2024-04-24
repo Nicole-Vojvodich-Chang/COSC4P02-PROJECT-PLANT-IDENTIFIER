@@ -93,11 +93,22 @@ function insert($un, $em, $ps)
 	
 	if ($conn->query($sql) == TRUE) 
 	{
-		echo "success";
+		//echo "success";
 	}
 	else 
 	{
-		echo "INSERT ERROR";
+		//echo "INSERT ERROR";
+	}
+	
+	$sql = "INSERT INTO `setting`(`username` , `language`, `accType`, `2FA`, `subscribed` ) VALUES ('". $un . "', 'english' , 'public' , '0' , '0')";					   
+	
+	if ($conn->query($sql) == TRUE) 
+	{
+		//echo "success";
+	}
+	else 
+	{
+		//echo "INSERT ERROR";
 	}
 }
 

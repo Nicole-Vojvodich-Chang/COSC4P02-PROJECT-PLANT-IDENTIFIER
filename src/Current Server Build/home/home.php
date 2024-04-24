@@ -30,10 +30,10 @@ if (!isset($_SESSION["user"]))
                 <embed src="Tree Hugger.png" alt="Logo" class="logo-image" style="margin-left: -10%;">
                 <span>Tree<br>Hugger</span>
             </div>
-            <a href="#" class="active">Home</a>
-            <a href="#"> Category </a>
-            <a href="/../Account/index.html"> User Account </a>
-            <a href="#"> Snap History </a>
+            <a href="home.php" class="active">Home</a>
+            <a href="/../plants.php"> PlantList </a>
+            <a href="/../Account/account.php"> User Account </a>
+            <a href="/../environments/environments.php"> Garden </a>
             <a href="environments.php" target="_parent">
               Environments</a>
             <a href="/../environments/settings.php"> Settings </a>

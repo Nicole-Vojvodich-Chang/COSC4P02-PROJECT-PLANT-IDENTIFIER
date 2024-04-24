@@ -20,10 +20,11 @@ if (!isset($_SESSION["user"]))
 </head>
 <body>
 
-    <div class="topnav">
+	<div class="topnav">
         <a href="/../home/home.php">Home</a>
-        <a href="environments.html" class="active">Garden</a>
         <a href="/../plants.php">PlantList</a>
+		<a href="/../account/account.php" >My Account</a>
+		<a href="environments.php" class="active">Garden</a>
 		<a href="settings.php">Settings</a>
         <!-- Add more navigation links as needed -->
     </div>

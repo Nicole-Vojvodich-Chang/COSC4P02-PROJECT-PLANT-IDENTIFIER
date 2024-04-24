@@ -10,6 +10,19 @@ if (!isset($_SESSION["user"]))
 
 
 
+
+$name_S; 
+$email_S; 
+$age_S; 
+$country_S; 
+$bio_S; 
+$language_S; 
+$aType_S; 
+$TFA_S; 
+$update_S;
+
+
+
 function updateUserProfile($name, $email, $age, $location, $bio)
 {
 	$servername = "localhost";
@@ -21,15 +34,60 @@ function updateUserProfile($name, $email, $age, $location, $bio)
 	{
 		die("ERROR PLEASE TRY AGAIN LATER... : " . mysqli_connect_error());
 	}
-	$sql = "UPDATE details SET name = '" . $name . "' , email = '" . $email . "' , age = '" . $age . "' , location = '" . $location . "' , bio = '" . $bio . "' WHERE username = 'GinkoBinko'";					   
+	$sql = "UPDATE details SET name = '" . $name . "' , email = '" . $email . "' , age = '" . $age . "' , location = '" . $location . "' , bio = '" . $bio . "' WHERE username = '" . $_SESSION["user"] . "'";					   
     if ($conn->query($sql) == TRUE){}
+	header("Refresh:0");
+}
+
+function updateUserSettings($lang, $aType, $updates, $TFA)
+{
+	$servername = "localhost";
+	$username = "root";		
+	$password = "";
+	$db = "users";
+	$conn = mysqli_connect($servername, $username, $password, $db);
+	if (!$conn) 
+	{
+		die("ERROR PLEASE TRY AGAIN LATER... : " . mysqli_connect_error());
+	}
+	$sql = "UPDATE setting SET language = '" . $lang . "' , accType = '" . $aType . "' , subscribed = '" . $updates . "' , 2FA = '" . $TFA . "' WHERE username = '" . $_SESSION["user"] . "'";				   
+    if ($conn->query($sql) == TRUE){}	
+	
+}
+
+function getSettings()
+{
+	global $name_S, $email_S, $age_S, $country_S, $bio_S, $language_S, $aType_S, $TFA_S, $update_S;
+	$servername = "localhost";
+	$username = "root";		
+	$password = "";
+	$db = "users";
+	$conn = mysqli_connect($servername, $username, $password, $db);
+	if (!$conn) 
+	{
+		die("ERROR PLEASE TRY AGAIN LATER... : " . mysqli_connect_error());
+	}
+	$sql = "SELECT * from details WHERE username = '" . $_SESSION["user"] . "'";				
+    $result = mysqli_query($conn, $sql);
+	$result = mysqli_fetch_row($result);		
+	$name_S = $result[1];		
+	$email_S = $result[2];		
+	$age_S = $result[3];		
+	$country_S = $result[4];		
+	$bio_S = $result[5];	
+	
+	$sql = "SELECT * from setting WHERE username = '" . $_SESSION["user"] . "'";				
+    $result = mysqli_query($conn, $sql);
+	$result = mysqli_fetch_row($result);
+	$language_S = $result[1];		
+	$aType_S = $result[2];		
+	$TFA_S = $result[3];		
+	$update_S = $result[4];
+	
 }
 
 
-
-
-
-
+getSettings();
 
 ?>
 
@@ -51,8 +109,10 @@ function updateUserProfile($name, $email, $age, $location, $bio)
         </div>
         <nav>
             <button class="nav-button" onclick="location.href='/../home/home.php';">Home</button>
-			<button class="nav-button" onclick="location.href='/../plants.php';">PlantList</button>
-            <button class="nav-button" onclick="location.href='environments.php';">Garden</button>
+			<button class="nav-button" onclick="location.href='/../plants.php';">Plant List</button>
+			<button class="nav-button" onclick="location.href='/../account/account.php';">My Account</button>
+			<button class="nav-button" onclick="location.href='environments.php';">Garden</button>
+
         </nav>
     </header>
     <main>
@@ -61,36 +121,43 @@ function updateUserProfile($name, $email, $age, $location, $bio)
             <h1>Account Details</h1>
             <div class="setting-item">
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
+				<?php
+				echo '<input type="text" id="name" name="name" value =' . $name_S . '>' ;
+				?>       
             </div>
             <div class="setting-item">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="setting-item">
-                <label for="degree">Degree:</label>
-                <input type="text" id="degree" name="degree">
+				<?php
+				echo '<input type="email" id="email" name="email" value =' . $email_S . '>';
+				?> 
             </div>
             <div class="setting-item">
                 <label for="age">Age:</label>
-                <input type="number" id="age" name="age" min="0">
+				<?php
+				echo '<input type="number" id="age" name="age" min="0" value =' . $age_S . '>';
+				?> 
             </div>
             <div class="setting-item">
                 <label for="city">Country:</label>
-                <input type="text" id="city" name="city">
+				<?php
+				echo '<input type="text" id="city" name="city" value =' . $country_S . '>';
+				?>
             </div>
             <div class="setting-item">
                 <label for="bio">Account Bio:</label>
-                <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
+                
+				<?php
+				echo '<textarea id="bio" name="bio" rows="4" cols="50">'.$bio_S.'</textarea>';
+				?>
             </div>
             <div class="setting-item">
-                <button type="submit">UPDATE</button>
+            <button type="submit">UPDATE</button>
             </div>
 			<?php
-			if (isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["degree"])&& isset($_POST["age"])&& isset($_POST["city"]))
-			{
-				updateUserProfile($_POST["name"],$_POST["email"],$_POST["degree"],$_POST["age"],$_POST["city"]);
-			}
+				if (isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["bio"])&& isset($_POST["age"])&& isset($_POST["city"]))
+				{
+					updateUserProfile($_POST["name"],$_POST["email"],$_POST["age"],$_POST["city"],$_POST["bio"]);
+				}
 			?>
         </form>
 
@@ -100,35 +167,89 @@ function updateUserProfile($name, $email, $age, $location, $bio)
 		<div class="setting-item">
 			<label for="languages">Language:</label>
 			<select name="languages" id="languages">
-			<option value="English">English</option>
+			<option value="english">English</option>
+			</select>
+			
+			<br>
 			
 			<label for="accType">Account Visibility:</label>
-			</select>
-			<br>
 			<select name="accType" id="accType">
 			<option value="public">Public</option>
 			<option value="private">Private</option>
 			</select>
+			
 			<br>
 			
 			<label for="eUpdate">Receive Email Updates:</label>
-			<input type="checkbox" name="eUpdate" checked>
+			<?php
+			if($update_S == 1)
+			{
+				echo '<input type="checkbox" name="eUpdate" checked>';
+			}
+			else
+			{
+				echo '<input type="checkbox" name="eUpdate">';
+			}
+			?>
+
 			
 			<label for="2FA">Two Factor Authentication:</label>
-			<input type="checkbox" name="2FA" checked>
+			<?php
+			if($TFA_S == 1)
+			{
+				echo '<input type="checkbox" name="2FA" checked>';
+			}
+			else
+			{
+				echo '<input type="checkbox" name="2FA">';
+			}
+			?>
+			<br>
 			
-            <button type="apply">Apply</button>
+            <button type="submit">Apply</button>
 		</div>
 			<?php
-				//WRITE CODE INTO THIS
-				//UPDATE ACCOUNT CREATION TO ADD SETTINGS ENTRY
+				$check1;
+				$check2;
 				
+				if(isset($_POST["2FA"]))
+				{
+					$check1 = 1;
+				}
+				else
+				{
+					$check1 = 0;
+				}
+				if(isset($_POST["eUpdate"]))
+				{
+					$check2 = 1;
+				}
+				else
+				{
+					$check2 = 0;
+				}
 				
-				//echo $_POST["languages"];
+				if (!isset($_POST["language"]) && !isset($_POST["accType"]))
+				{
+					updateUserSettings($language_S,$aType_S,$check2,$check1);
+				}
+				else if (!isset($_POST["language"]) && isset($_POST["accType"]))
+				{
+					updateUserSettings($language_S,$_POST["accType"],$check2,$check1);
+				}
+				else if (isset($_POST["language"]) && !isset($_POST["accType"]))
+				{
+					updateUserSettings($language_S,$aType_S,$check2,$check1);
+				}
+				else
+				{
+					updateUserSettings($_POST["language"],$_POST["accType"],$check2,$check1);
+				}
+			
 			?>
 		</form>
 		<?php
-				echo date("m/d/Y") ;
+			echo date("m/d/Y") ;
 		?>
         
     </main>

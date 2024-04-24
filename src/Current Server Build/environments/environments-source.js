@@ -15,33 +15,37 @@ document.body.appendChild(overlay);
 
 const popup = document.createElement('div');    //the popup for plant details
 
-/*
-//Makes a request to retrieve discovered plants for the user
-fetch('http://localhost:8080/environment')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json(); //returns the response
-    })
-    .then(data => {
-        
-    })
-    .catch(error => {
-        console.error('There has been a problem with your fetch operation:', error);
-    });
-
-*/
-
 const plantContainer = document.querySelector('.plant-container');
 
 plants.forEach((plant) => {
     const plantItem = document.createElement('div');
     plantItem.classList.add('plant-item');
-    plantItem.textContent = plant[0]; // Display plant name
+
+    //Create an image element
+    const plantImage = document.createElement('img');
+    plantImage.src = plant[3]; // The image file for the plant
+    plantImage.alt = plant[0]; // Alt text as the plant's name
+    plantImage.style.width = '100%'; // Make image fill the container
+    plantImage.style.height = 'auto'; // Maintain aspect ratio
+
+    //Create a span for plant name, displayed over the image
+    const plantName = document.createElement('span');
+    plantName.textContent = plant[0];
+    plantName.style.position = 'absolute';
+    plantName.style.bottom = '5px';
+    plantName.style.left = '5px';
+    plantName.style.color = 'white';
+    plantName.style.fontWeight = 'bold';
+    plantName.style.textShadow = '2px 2px 4px #000';
+
+    //Append image and name to the plant item
+    plantItem.appendChild(plantImage);
+    plantItem.appendChild(plantName);
+
     plantItem.onclick = () => showPlantDetails(...plant);
     plantContainer.appendChild(plantItem);
 });
+
 
 //This function generates a popup window that displays a plant's details
 function showPlantDetails(name, description, date, imageUrl) {
