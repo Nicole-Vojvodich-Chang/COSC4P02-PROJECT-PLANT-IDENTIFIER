@@ -76,14 +76,28 @@ function insert($un, $em, $ps)
 	$saltpass = hash('sha256', $saltpass);
 	$sql = "INSERT INTO `user`(`email`, `username`, `password`) VALUES ('". $em. "','". $un. "','". $saltpass. "')";				
    
-		//CREATES ACCOUNT IF IT IS AVAILABLE
-  		if ($conn->query($sql) == TRUE) 
+	//CREATES ACCOUNT IF IT IS AVAILABLE
+  	if ($conn->query($sql) == TRUE) 
 	{
 		echo "<br> ACCOUNT CREATED SUCCESSFULLY <br>";
 	}
 	else 
 	{
 		echo "ERROR CREATING ACCOUNT";
+	}
+	
+	
+	
+	
+	$sql = "INSERT INTO `details`(`username`) VALUES ('". $un . "')";					   
+	
+	if ($conn->query($sql) == TRUE) 
+	{
+		echo "success";
+	}
+	else 
+	{
+		echo "INSERT ERROR";
 	}
 }
 
