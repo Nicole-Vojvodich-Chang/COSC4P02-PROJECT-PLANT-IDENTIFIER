@@ -4,6 +4,13 @@
 const plants = [
     ["Rose", "A beautiful flower with thorns.", "01-01-2020", "rose.jpg"],
     ["Daisy", "A simple and pretty flower.", "02-02-2021", "daisy.jpg"],
+    ["Tulip", "A flower of some sort.", "02-02-2021", "tulip.jpg"], 
+    ["Daisy", "A simple and pretty flower.", "02-02-2021", "daisy.jpg"],
+    ["Tulip", "A flower of some sort.", "02-02-2021", "tulip.jpg"], 
+    ["Rose", "A beautiful flower with thorns.", "01-01-2020", "rose.jpg"],
+    ["Daisy", "A simple and pretty flower.", "02-02-2021", "daisy.jpg"],
+    ["Rose", "A beautiful flower with thorns.", "01-01-2020", "rose.jpg"],
+    ["Daisy", "A simple and pretty flower.", "02-02-2021", "daisy.jpg"],
     ["Tulip", "A flower of some sort.", "02-02-2021", "tulip.jpg"]
 ];
 
@@ -67,7 +74,7 @@ function showPlantDetails(name, description, date, imageUrl) {
             <h2>${name}</h2>
             <p>${description}</p>
             <p>Discovery Date: ${date}</p>
-            <img src="${imageUrl}" alt="${name}" style="width:100%;">
+            <img src="${imageUrl}" alt="alt_plant_photo" style="width:100%;">
         </div>
     `;
     popup.style.width = '80vw'; //80% of the viewport width
