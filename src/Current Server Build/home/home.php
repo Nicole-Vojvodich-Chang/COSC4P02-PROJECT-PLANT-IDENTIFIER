@@ -7,6 +7,18 @@ if (!isset($_SESSION["user"]))
 {
 	header("Location: /../index.php");
 }
+function logout()
+{
+	if (isset($_SESSION["user"]))
+	{
+		session_destroy();
+	}
+	header("Location: /../index.php");
+}
+if (isset($_GET['logout']))
+{
+	logout();
+}
 ?>
 
 
@@ -33,10 +45,10 @@ if (!isset($_SESSION["user"]))
             <a href="home.php" class="active">Home</a>
             <a href="/../plants.php"> PlantList </a>
             <a href="/../Account/account.php"> User Account </a>
-            <a href="/../environments/environments.php"> Garden </a>
-            <a href="environments.php" target="_parent">
-              Environments</a>
-            <a href="/../environments/settings.php"> Settings </a>
+            <a href="/../environments/environments.php">Garden </a>
+            <a href="environments.php" target="_parent">Environments</a>
+            <a href="/../environments/settings.php"> Settings</a>
+			<a href="home.php?logout=1">Logout</a>
         </nav>
         <aside class="plant-gallery">
             <embed src="plant1.png" alt="Plant 1" class="plant-left">
@@ -44,8 +56,18 @@ if (!isset($_SESSION["user"]))
         </aside>
         <section class="newitementry">
             <form id="entryForm">
-                <input id="myInput" type="text" name="myCountry" placeholder="search plants" size="40">
-                <button id="search button" class="button" title="search new plants" aria-label="search for plants" tabindex="0">⌕</button>               
+                <input id="myInput" type="text" name="plantSearch" placeholder="search plants" size="40">
+                <button id="search button" type = "submit" class="button" title="search new plants" aria-label="search for plants" tabindex="0">⌕</button>  
+				<?php
+				if (isset($_GET['plantSearch']))
+				{
+					if ($_GET['plantSearch'] != '')
+					{
+						header("Location: /../plants.php?sBox=''&search=" . $_GET['plantSearch']);
+					}
+				}
+				
+				?>
             </form>
 
             <section class="listcontainer">     

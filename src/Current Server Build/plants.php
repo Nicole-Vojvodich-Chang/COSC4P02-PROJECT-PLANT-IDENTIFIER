@@ -79,9 +79,7 @@ li a:hover:not(.active) {
   background-color: #111;
 }
 
-.active {
-  background-color: #04AA6D;
-}
+
 
 		
 		
@@ -93,8 +91,8 @@ li a:hover:not(.active) {
 		<li><a href="/../home/home.php">Home</a></li>
 		<li><a href="/../plants.php">PlantList</a></li>
 		<li><a href="/../account/account.php" >My Account</a></li>
-		<li><a href="environments.php" class="active">Garden</a></li>
-		<li><a href="settings.php">Settings</a></li>
+		<li><a href="/../environments/environments.php" >Garden</a></li>
+		<li><a href="/../environments/settings.php">Settings</a></li>
 	</ul>
 
 
@@ -239,7 +237,7 @@ echo "</form>";
 
 if (isset($_POST["sBox"])) {
     if ($_POST["sBox"] != "") {
-        searchPlant("https://perenual.com/api/species-list?key=sk-Isew65d71a109b4c94313&q=", $_POST["sBox"]);
+        searchPlant("https://perenual.com/api/species-list?key=sk-69p865beb721925be4020&q=", $_POST["sBox"]);
         echo "<br>";
     } 
 	else 
@@ -252,7 +250,7 @@ else if(isset($_GET['search']))
 {
 	if($_GET['search'] != "")
 	{
-		searchPlant("https://perenual.com/api/species-list?key=sk-Isew65d71a109b4c94313&q=", $_GET['search']);
+		searchPlant("https://perenual.com/api/species-list?key=sk-69p865beb721925be4020&q=", $_GET['search']);
 		echo "<br>";
 	}
 	else
@@ -264,10 +262,10 @@ else if(isset($_GET['search']))
 else 
 {
     //alphabetical
-    //call("https://perenual.com/api/species-list?key=sk-Isew65d71a109b4c94313&order=asc&page=", 1);
+    //call("https://perenual.com/api/species-list?key=sk-69p865beb721925be4020&order=asc&page=", 1);
 
     //default
-    call("https://perenual.com/api/species-list?key=sk-Isew65d71a109b4c94313&page=", 1);
+    call("https://perenual.com/api/species-list?key=sk-69p865beb721925be4020&page=", 1);
 }
 ?>
 </body>
