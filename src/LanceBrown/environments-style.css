@@ -33,25 +33,27 @@ body {
 
 .plant-container {
     background-color: #cf8754;
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    padding: 10px; /* Adjusted padding for inner space */
     border: 5px solid rgb(53, 51, 51);
+    width: 100%; /* Adjust this to your preference for fixed width or full width */
+    height: 200px; /* Fixed height */
+    overflow-x: auto; /* Horizontal scroll on the container itself */
+    overflow-y: hidden; /* Prevent vertical scrolling */
+    position: relative; /* Required for proper overflow handling */
+    white-space: nowrap; /* Prevents wrapping to ensure horizontal layout */
 }
 
 .plant-item {
-    width: 150px;
-    height: 150px;
-    margin: 10px;
-    background-color: #90EE90; /* Optional: might want to make this transparent */
+    display: inline-block; /* Align items horizontally */
+    width: 150px; /* Fixed width for each plant item */
+    height: 150px; /* Fixed height for each plant item */
+    margin: 5px; /* Space between items */
+    background-color: #90EE90;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+    position: relative; /* For positioning the label correctly */
     border: 3px solid rgb(70, 112, 95);
-    overflow: hidden; /* Ensures the image doesn't exceed the div size */
+    overflow: hidden; /* Ensure contents do not overflow */
+    white-space: normal; /* Reset white-space for contents within */
 }
 
 .plant-item img {
