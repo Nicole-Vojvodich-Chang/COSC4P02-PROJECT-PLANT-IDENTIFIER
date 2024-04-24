@@ -214,7 +214,7 @@ function authenticate($em, $pw)
 					if (isset($_POST["user"]) && isset($_POST["pass"]) && $_POST["pass"] != "" && $_POST["user"] != "")
 					{
 						authenticate($_POST["user"], $_POST["pass"]);
-						header("Location: home/home.php");
+						header("Location: SplashScreen.php");
 					}
 					else
 					{	

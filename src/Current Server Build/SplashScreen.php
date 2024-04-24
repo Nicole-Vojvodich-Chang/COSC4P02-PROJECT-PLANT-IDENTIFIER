@@ -37,7 +37,7 @@
             animation.parentNode.removeChild(animation);
         }, 2000); // we can adjust the length of the time for splash screen to stay
 		setTimeout(function() {
-		console.log("test");
+		window.location.href = "home/home.php";
 		}, 2000);
     </script>
 </body>
