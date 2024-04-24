@@ -19,34 +19,6 @@ if (isset($_GET['logout']))
 {
 	logout();
 }
-
-function insert($pName,$date,$description)
-{
-	//CONNECT TO DATABASE
-    $servername = "localhost";
-	$username = "root";		
-	$password = "";
-	$db = "users";
-	$conn = mysqli_connect($servername, $username, $password, $db);
-	if (!$conn) 
-	{
-		die("ERROR PLEASE TRY AGAIN LATER... : " . mysqli_connect_error());
-	}
-			
-	$sql = "INSERT INTO `identified`(`username`, `Plantname`, `Date`, `description`) VALUES ('". $_SESSION["user"] . "','". $pName. "','". $date. "','" . $description. "')";				
-		   
-
-	//CREATES ACCOUNT IF IT IS AVAILABLE
-    if ($conn->query($sql) == TRUE) 
-	{
-	
-	}
-	else 
-	{
-		echo "ERROR SAVING PLANT";
-	}
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -157,7 +129,7 @@ function insert($pName,$date,$description)
 				{
 					if ($_GET['plantSearch'] != '')
 					{
-						header("Location: /../plants.php?sBox='0'&search=" . $_GET['plantSearch']);
+						header("Location: /../plants.php?sBox=''&search=" . $_GET['plantSearch']);
 					}
 				}
 				
@@ -215,7 +187,6 @@ function insert($pName,$date,$description)
         </section>
     </main>
     <script>
-		
       document.addEventListener("DOMContentLoaded", function() {
           const defaultBtn = document.getElementById("default-btn");
           const customBtn = document.getElementById("custom-btn");
@@ -280,12 +251,6 @@ function insert($pName,$date,$description)
 
               var imageUrl = canvas.toDataURL('image/jpeg');
               identifyPlant(imageUrl);
-			  <?php
-			   if (isset($_COOKIE["pCook"])) 
-			   {
-				 insert($_COOKIE["pCook"], date("m/d/Y"), "This is a plant");
-			   }
-			  ?>
           });
 
 
@@ -377,11 +342,7 @@ function insert($pName,$date,$description)
                var commonName = commonNames[0];
                document.getElementById("plantCommonName").innerHTML = commonName;
                document.getElementById("loadingCircle").style.display = "none";
-			  
-			   document.cookie='pCook='+commonName; 
-			   
-			   
-			   
+
             })
             .catch(error =>{
                console.error('Error fetching plant common names:', error);

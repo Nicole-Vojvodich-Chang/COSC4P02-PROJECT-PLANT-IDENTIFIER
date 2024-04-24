@@ -105,7 +105,7 @@ if (!isset($_GET['page']))
 {
     $_GET['page'] = 1;
 }
-
+error_reporting(E_ERROR | E_PARSE);
 
 
 
