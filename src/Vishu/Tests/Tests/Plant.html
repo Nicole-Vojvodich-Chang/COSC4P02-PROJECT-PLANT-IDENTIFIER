@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Identification Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('file:///C:/Users/Balkaran/Desktop/back.jpg');
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background-color: #20493c;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        main {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+        .logo img {
+            height: 60px;
+        }
+        footer {
+            background-color: #20493c;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: auto;
+        }
+        .social a {
+            color: white;
+            margin-right: 10px;
+        }
+        #imagePreview img {
+            max-width: 60%;
+            max-height: 300px;
+            height: auto;
+        }
+        #loadingIndicator {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        #retryButton {
+            display: none;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #20493c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #retryButton:hover {
+            background-color: #16723f;
+        }
+        #identificationMessage {
+            text-align: left;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="file:///C:/Users/Balkaran/Desktop/logo.png" alt="Your Logo"></div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">User Account</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Plant Identification Tool</h1>
+        <p>Upload a picture of a plant or use your camera to identify it.</p>
+        <div id="imageUpload">
+            <input type="file" id="uploadInput" accept="image/*">
+            <button id="cameraButton">Use Camera</button>
+        </div>
+        <div id="videoContainer" style="display: none;">
+            <video id="cameraFeed" autoplay></video>
+            <button id="captureButton">Capture Image</button>
+        </div>
+        <div id="imagePreview"></div>
+        <div id="loadingIndicator">Loading...</div>
+        <div id="plantInfo" style="display: none;"></div>
+        <div id="plantCommonName"></div>
+        <div id="identificationMessage"></div>
+        <button id="retryButton">Retry</button>
+    </main>
+    <footer>
+        <p>Contact: planthugger@gmail.com</p>
+        <div class="social">
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+            <a href="#">Instagram</a>
+        </div>
+    </footer>
+
+    <script>
+        src="script.js"
+    </script>
+</body>
+</html>
